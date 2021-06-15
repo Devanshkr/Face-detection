@@ -11,25 +11,14 @@ class Register extends React.Component {
     }
   }
 
-  onNameChange = (event) => {
-    this.setState({ name: event.target.value });
-  }
-
-  onEmailChange = (event) => {
-    this.setState({ Email: event.target.value });
-  }
-
-  onPasswordChange = (event) => {
-    this.setState({ Password: event.target.value });
-  }
+  onNameChange = (event) => { this.setState({ name: event.target.value }); }
+  onEmailChange = (event) => { this.setState({ Email: event.target.value }); }
+  onPasswordChange = (event) => { this.setState({ Password: event.target.value }); }
 
   onSubmitSignIn = () => {
-    // console.log(this.state);
     fetch('https://ancient-taiga-01841.herokuapp.com/register', {
       method: 'post',
-      //header accepts an object
       headers: { 'Content-type': 'application/json' },
-      //over backend we gotta stringify 
       body: JSON.stringify({
         email: this.state.Email,
         password: this.state.Password,
@@ -38,11 +27,8 @@ class Register extends React.Component {
     })
       .then(resp => resp.json())
       .then(user => {
-        //main point for that.
         if (user.id) {
-          //if found a user then add to database.
           this.props.loadUser(user)
-          //now going to home
           this.props.onRouteChange('home');
         }
       })
@@ -88,8 +74,7 @@ class Register extends React.Component {
           </fieldset>
           <div className="">
             <input
-              // onClick={onRouteChange('home')}
-              onClick={this.onSubmitSignIn}  //parameterised fn.
+              onClick={this.onSubmitSignIn}
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f5 dib"
               type="submit"
               value="Register" />
