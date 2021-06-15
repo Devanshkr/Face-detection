@@ -18,25 +18,16 @@ class SignIn extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    // console.log(this.state);
     fetch('https://ancient-taiga-01841.herokuapp.com/signin', {
       method: 'post',
-      //header accepts an object
       headers: {'Content-type': 'application/json'},
-      //over backend we gotta stringify 
       body: JSON.stringify({
         email: this.state.signInEmail,
         password: this.state.signInPassword
       })
     })
-      //yaani ab jab sahi credentials daalenge tabhi login ho payga.
       .then(resp => resp.json())
       .then(user => {
-        //main point for that.
-        // if (data === 'success') {
-        //   this.props.onRouteChange('home');
-        // }
-        //check if user has an id, then only load them
         if (user.id) {
           this.props.loadUser(user)
           this.props.onRouteChange('home');
@@ -75,8 +66,7 @@ class SignIn extends React.Component {
             </fieldset>
             <div className="">
               <input 
-                // onClick={onRouteChange('home')}
-                onClick={this.onSubmitSignIn}  //parameterised fn.
+                onClick={this.onSubmitSignIn} 
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f5 dib" 
                 type="submit" 
                 value="Sign in" 
